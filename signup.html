@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 - 즐겨찾기 사이트</title>
+  <link rel="stylesheet" href="signup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .error-msg {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      margin-top: 4px;
+      display: block;
+    }
+    .input-group input.error-border {
+      border-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h1 onclick="window.location.href='index.html'">즐겨찾기 사이트</h1>
+    <div class="signup-box">
+      <h2>회원가입</h2>
+
+      <div class="input-group">
+        <label>아이디</label>
+        <input type="text" id="username" placeholder="아이디를 입력하세요 (영문/숫자 4~12자)">
+        <span id="usernameError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>비밀번호</label>
+        <input type="password" id="password" placeholder="비밀번호 (영문, 숫자, 특수문자 조합 6~20자)">
+        <span id="passwordError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>비밀번호 확인</label>
+        <input type="password" id="passwordConfirm" placeholder="비밀번호를 다시 입력하세요">
+        <span id="passwordConfirmError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>이름</label>
+        <input type="text" id="name" placeholder="이름을 입력하세요">
+        <span id="nameError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>이메일</label>
+        <input type="email" id="email" placeholder="example@domain.com">
+        <span id="emailError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>휴대폰</label>
+        <div class="phone-row">
+          <input type="tel" id="phone" placeholder="010-0000-0000">
+          <button class="verify-btn" id="sendCodeBtn">인증번호 받기</button>
+        </div>
+        <div class="phone-row hidden" id="codeRow">
+          <input type="text" id="verifyCode" placeholder="인증번호 6자리">
+          <button class="verify-btn" id="confirmCodeBtn">확인</button>
+        </div>
+        <span class="verify-msg hidden" id="verifyMsg"></span>
+        <span id="phoneError" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label>성별</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="gender" value="male"> 남성
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="gender" value="female"> 여성
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="gender" value="other"> 기타
+          </label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>생년월일</label>
+        <input type="date" id="birthdate">
+      </div>
+
+      <div class="terms-box">
+        <label class="terms-all">
+          <input type="checkbox" id="checkAll"> <strong>전체 동의합니다</strong>
+        </label>
+        <hr class="terms-hr">
+        <label class="terms-item">
+          <input type="checkbox" class="checkItem"> 이용약관 동의 <span class="required">(필수)</span>
+        </label>
+        <label class="terms-item">
+          <input type="checkbox" class="checkItem"> 개인정보 수집 및 이용 동의 <span class="required">(필수)</span>
+        </label>
+        <label class="terms-item">
+          <input type="checkbox" class="checkItem"> 마케팅 광고 활용을 위한 수집 및 이용 동의 <span class="optional">(선택)</span>
+        </label>
+        <label class="terms-item">
+          <input type="checkbox" class="checkItem"> 무료배송, 할인쿠폰 등 혜택/정보 수신 동의 <span class="optional">(선택)</span>
+        </label>
+        <div class="sub-checks">
+          <label class="terms-item">
+            <input type="checkbox" class="checkItem"> SMS
+          </label>
+          <label class="terms-item">
+            <input type="checkbox" class="checkItem"> 이메일
+          </label>
+        </div>
+        <label class="terms-item">
+          <input type="checkbox" class="checkItem" id="ageCheck"> 본인은 만 14세 이상입니다. <span class="required">(필수)</span>
+        </label>
+        <span id="termsError" class="error-msg"></span>
+      </div>
+
+      <button class="signup-submit" id="signupBtn">가입하기</button>
+      <p class="login-link">이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+    </div>
+  </div>
+
+  <script>
+    const checkAll = document.getElementById('checkAll');
+    const checkItems = document.querySelectorAll('.checkItem');
+
+    checkAll.addEventListener('change', () => {
+      checkItems.forEach(item => item.checked = checkAll.checked);
+    });
+
+    checkItems.forEach(item => {
+      item.addEventListener('change', () => {
+        checkAll.checked = [...checkItems].every(i => i.checked);
+      });
+    });
+
+    // 휴대폰 번호 인증 시에도 포맷 체크 적용
+    document.getElementById('sendCodeBtn').addEventListener('click', () => {
+      const phoneInput = document.getElementById('phone');
+      const phone = phoneInput.value.trim();
+      const phoneError = document.getElementById('phoneError');
+      
+      phoneError.textContent = '';
+      phoneInput.classList.remove('error-border');
+
+      const phoneRegex = /^010-\d{3,4}-\d{4}$/;
+
+      if (!phone) {
+        phoneError.textContent = '휴대폰 번호를 입력해주세요.';
+        phoneInput.classList.add('error-border');
+        return;
+      } else if (!phoneRegex.test(phone)) {
+        phoneError.textContent = '올바른 휴대폰 번호 형식(010-0000-0000)으로 입력해주세요.';
+        phoneInput.classList.add('error-border');
+        return;
+      }
+
+      document.getElementById('codeRow').classList.remove('hidden');
+      document.getElementById('sendCodeBtn').textContent = '재전송';
+      alert('인증번호가 전송되었습니다. (테스트: 123456)');
+    });
+
+    document.getElementById('confirmCodeBtn').addEventListener('click', () => {
+      const code = document.getElementById('verifyCode').value.trim();
+      const msg = document.getElementById('verifyMsg');
+      msg.classList.remove('hidden');
+      if (code === '123456') {
+        msg.textContent = '✓ 인증이 완료되었습니다.';
+        msg.style.color = '#27ae60';
+      } else {
+        msg.textContent = '✗ 인증번호가 올바르지 않습니다.';
+        msg.style.color = '#e74c3c';
+      }
+    });
+
+    function clearErrors() {
+      document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
+      document.querySelectorAll('.signup-box input').forEach(el => el.classList.remove('error-border'));
+    }
+
+    function setError(inputId, errorId, message) {
+      document.getElementById(errorId).textContent = message;
+      if (inputId) {
+        document.getElementById(inputId).classList.add('error-border');
+
+        inputEl.classList.add('shake');
+        setTimeout(() => inputEl.classList.remove('shake'), 400);
+      }
+    }
+
+    document.getElementById('signupBtn').addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('passwordConfirm').value;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const ageCheck = document.getElementById('ageCheck').checked;
+
+      const requiredChecks = [...document.querySelectorAll('.checkItem')].slice(0, 2);
+
+      clearErrors();
+      let isValid = true;
+
+      const usernameRegex = /^[a-zA-Z0-9]{4,12}$/;
+      if (!username) {
+        setError('username', 'usernameError', '아이디를 입력해주세요.');
+        isValid = false;
+      } else if (!usernameRegex.test(username)) {
+        setError('username', 'usernameError', '아이디는 4~12자의 영문 대소문자 및 숫자만 가능합니다.');
+        isValid = false;
+      }
+
+      const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/;
+      if (!password) {
+        setError('password', 'passwordError', '비밀번호를 입력해주세요.');
+        isValid = false;
+      } else if (!passwordRegex.test(password)) {
+        setError('password', 'passwordError', '비밀번호는 영문, 숫자, 특수문자(@$!%*?&) 조합 6~20자여야 합니다.');
+        isValid = false;
+      }
+
+      if (!passwordConfirm) {
+        setError('passwordConfirm', 'passwordConfirmError', '비밀번호 확인을 입력해주세요.');
+        isValid = false;
+      } else if (password !== passwordConfirm) {
+        setError('passwordConfirm', 'passwordConfirmError', '비밀번호가 일치하지 않습니다.');
+        isValid = false;
+      }
+
+      if (!name) {
+        setError('name', 'nameError', '이름을 입력해주세요.');
+        isValid = false;
+      }
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!email) {
+        setError('email', 'emailError', '이메일을 입력해주세요.');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        setError('email', 'emailError', '올바른 이메일 형식(example@domain.com)이 아닙니다.');
+        isValid = false;
+      }
+
+      const phoneRegex = /^010-\d{3,4}-\d{4}$/;
+      if (!phone) {
+        setError('phone', 'phoneError', '휴대폰 번호를 입력해주세요.');
+        isValid = false;
+      } else if (!phoneRegex.test(phone)) {
+        setError('phone', 'phoneError', '올바른 휴대폰 번호 형식(010-0000-0000)이 아닙니다.');
+        isValid = false;
+      }
+
+      if (!requiredChecks.every(c => c.checked) || !ageCheck) {
+        setError('', 'termsError', '필수 약관 및 만 14세 이상 동의 항목에 체크하셔야 합니다.');
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert('회원가입이 완료되었습니다!');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>

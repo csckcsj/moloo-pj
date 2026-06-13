@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.signup-container h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  cursor: pointer;
+}
+
+.signup-container h1:hover {
+  color: #4a90e2;
+}
+
+.signup-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.signup-box h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.input-group input {
+  padding: 10px 14px;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #4a90e2;
+}
+
+.signup-submit {
+  padding: 12px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.signup-submit:hover {
+  background-color: #357abd;
+}
+
+.login-link {
+  text-align: center;
+  font-size: 0.88rem;
+  color: #888;
+}
+
+.login-link a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* 휴대폰 인증 */
+.phone-row {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-row input {
+  flex: 1;
+}
+
+.verify-btn {
+  padding: 10px 14px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.verify-btn:hover { background-color: #357abd; }
+
+.verify-msg {
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+/* 성별 라디오 */
+.radio-group {
+  display: flex;
+  gap: 16px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #444;
+  cursor: pointer;
+  font-weight: 400 !important;
+}
+
+/* 약관 박스 */
+.terms-box {
+  background: #f8f9fc;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.terms-all {
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terms-hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 4px 0;
+}
+
+.terms-item {
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sub-checks {
+  display: flex;
+  gap: 16px;
+  padding-left: 20px;
+}
+
+.required { color: #e74c3c; font-size: 0.8rem; }
+.optional { color: #888; font-size: 0.8rem; }
+
+.hidden { display: none; }
+
+.input-group input {
+  transition: all 0.25s ease;
+}
+.input-group input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}

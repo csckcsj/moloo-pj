@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.about-main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.about-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.about-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 28px;
+}
+
+.about-section {
+  margin-bottom: 24px;
+}
+
+.about-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.about-value {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.7;
+}

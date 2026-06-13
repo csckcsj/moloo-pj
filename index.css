@@ -1,0 +1,464 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #222;
+}
+
+h1:hover { color: #4a90e2; }
+
+/* 네비게이션 */
+.main-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f0f4ff;
+  color: #4a90e2;
+}
+
+.nav-link.active {
+  background-color: #f0f4ff;
+  color: #4a90e2;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  gap: 8px;
+}
+
+.login-btn, .signup-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.login-btn {
+  background-color: #fff;
+  border: 1.5px solid #4a90e2;
+  color: #4a90e2;
+}
+
+.login-btn:hover {
+  background-color: #4a90e2;
+  color: #fff;
+}
+
+.signup-btn {
+  background-color: #4a90e2;
+  color: #fff;
+}
+
+.signup-btn:hover { background-color: #357abd; }
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* 삼선 버튼 */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.hamburger-menu .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+/* 사이드바 */
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+  z-index: 1000;
+  padding-top: 60px;
+}
+
+.menu ul { list-style: none; padding: 10px; }
+.menu ul li { margin: 4px 0; }
+.menu ul li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+.menu ul li a:hover {
+  background-color: #f0f4ff;
+  color: #4a90e2;
+}
+
+.hidden { transform: translateX(-100%); }
+
+/* 메인 */
+main {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.main-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.add-category-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px dashed #aaa;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.add-category-btn:hover {
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+/* 카테고리 박스 */
+#categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.category-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.category-box-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.delete-category-btn {
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.delete-category-btn:hover {
+  color: #e74c3c;
+  background: #fff0f0;
+}
+
+/* 사이트 그리드 */
+.site-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 사이트 카드 */
+.site-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 88px;
+  padding: 14px 8px;
+  border-radius: 14px;
+  background: #f8f9fc;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: #333;
+}
+
+.site-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #f0f4ff;
+}
+
+.site-card img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.site-card .site-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+  color: #444;
+  word-break: break-all;
+}
+
+.site-card .delete-site {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 0.7rem;
+  color: #ccc;
+  cursor: pointer;
+  display: none;
+  line-height: 1;
+}
+
+.site-card:hover .delete-site { display: block; }
+.delete-site:hover { color: #e74c3c; }
+
+/* 사이트 추가 버튼 카드 */
+.add-site-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 88px;
+  padding: 14px 8px;
+  border-radius: 14px;
+  border: 2px dashed #ccc;
+  background: transparent;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 0.78rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+}
+
+.add-site-card:hover {
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+.add-site-card .plus {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* 사이트 추가 팝업 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1999;
+}
+
+.overlay.hidden {
+  display: none;
+  transform: none;
+}
+
+.add-bookmark-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  z-index: 2000;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-bookmark-form.hidden { display: none; }
+
+.add-bookmark-form h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.add-bookmark-form input {
+  padding: 9px 12px;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  outline: none;
+}
+
+.add-bookmark-form input:focus { border-color: #4a90e2; }
+
+.form-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.form-buttons button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.88rem;
+}
+
+#confirmBookmarkBtn { background-color: #4a90e2; color: #fff; }
+#cancelBookmarkBtn { background-color: #eee; color: #555; }
+
+/* 오른쪽 고정 광고바 */
+.ad-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 120px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ad-label {
+  font-size: 0.7rem;
+  color: #bbb;
+  padding: 6px 0 4px;
+  letter-spacing: 0.1em;
+}
+
+.ad-sidebar img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.site-card {
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s ease;
+}
+
+.site-card:hover {
+  transform: translateY(-6px); 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+  border-color: #4a90e2; 
+}
+
+.delete-site {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.delete-site:hover {
+  transform: scale(1.2);
+  color: #e74c3c;
+}
+
+@keyframes modalBounceIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.95); 
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); 
+  }
+}
+
+.add-bookmark-form:not(.hidden) {
+  animation: modalBounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.overlay:not(.hidden) {
+  animation: fadeIn 0.25s ease forwards;
+}
